@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import { BsFillCheckSquareFill } from "react-icons/bs"
 import servicesConfig from "../../../../config/services.json"
 import atualizarPedido from '../../../../api/modules/atualizarPedido'
-import api from '../../../../api'
 
 export default (props) => {
     let itens = props.itens
@@ -101,12 +100,12 @@ export default (props) => {
 
     return (
         <main className="flex flex-col gap-2">
-            <div className='flex flex-[2] flex-col lg:flex-row p-2 gap-2 w-[100%]'>
-                <section id='box-items' className='flex gap-1 sm:gap-2 items-center justify-between w-full'>
+            <div className='flex flex-[2] flex-col lg:flex-row p-2 w-full gap-2'>
+                <section id='box-items' className='flex gap-1 sm:gap-2 items-center justify-between'>
                     <div className='p-2 border border-wmsGrey  rounded-lg shadow-xl'>
                         <img className='w-[12rem] h-[12rem]' id='img-items' alt="Item" />
                     </div>
-                    <div className='flex flex-col text-sm sm:text-lg '>
+                    <div className='flex flex-col text-sm sm:text-lg w-[10rem] sm:w-[18rem]'>
                         <div>
                             <p id='sku-items'>Sku:</p>
                             <p id='title-items'>Titulo:</p>
@@ -116,7 +115,7 @@ export default (props) => {
                         </div>
                     </div>
                 </section>
-                <section id='checkout-true' className='text-sm hidden sm:text-lg flex-col justify-between w-full min-h-[200px]'>
+                <section id='checkout-true' className='text-sm hidden sm:text-lg flex-col justify-between w-full lg:w-[20rem] min-h-[200px]'>
                     <header className='text-xl text-green-500 sm:text-2xl font-bold flex gap-1 items-center'>
                         <BsFillCheckSquareFill />
                         <h2 >-Conferência completa</h2>
@@ -141,13 +140,13 @@ export default (props) => {
                         </button>
                     </footer>
                 </section>
-                <section id='box-checkout' className='flex gap-1 sm:gap-2 items-center justify-center w-full'>
-                    <div className='border-wmsGrey flex flex-col justify-between text-sm sm:text-md w-full lg:text-xl border rounded-lg shadow-xl  '>
+                <section id='box-checkout' className='flex gap-1 sm:gap-2 items-center justify-center w-full lg:w-[20rem]'>
+                    <div className='border-wmsGrey flex  flex-col justify-between text-sm sm:text-md  w-full lg:text-xl border rounded-lg shadow-xl  '>
                         <header className='font-semibold h-[15%] border-b p-2  border-wmsGrey'>
                             <h2>Leituras</h2>
                         </header>
                         <main className='overflow-y-scroll h-full '>
-                            <ul id="ul-checkout" className='min-h-[12rem] '>
+                            <ul id="ul-checkout" className='min-h-[12rem]'>
                                 {myItens.map((item) => <li id={item.sku} className='flex justify-between pl-2 pr-2'>
                                     <p className='sku'>SKU: {item.sku}</p>
                                     <p id={item.sku + "-total"} className='total'>{item.totalConferido}/{item.quantidade}</p>

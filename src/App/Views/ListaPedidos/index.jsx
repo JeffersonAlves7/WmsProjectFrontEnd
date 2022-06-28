@@ -7,7 +7,7 @@ function Row(props) {
     return (
         <tr className="border-b-2 border-black  ">
             <td className="text-xs pb-5 pt-5 ">
-                <div className="flex items-center flex-col justify-center">
+                <div className="flex items-center pl-2 pr-2 flex-col justify-center">
                     {
                         itens.map(item => (
                             <div className="grid sm:grid-cols-[100px_100px] items-center justify-items-center">
@@ -19,7 +19,7 @@ function Row(props) {
                 </div>
             </td>
             <td>
-                <div className="flex items-center flex-col text-xs sm:text-sm font-semibold lg:text-lg justify-center">
+                <div className="flex items-center pl-2 pr-2 flex-col text-xs sm:text-sm font-semibold lg:text-lg justify-center">
                     {
                         itens.map(item => (
                             <div className="flex items-center h-[4rem]">
@@ -30,12 +30,14 @@ function Row(props) {
                 </div>
             </td>
             <td>
-                <div className="flex items-center text-xs sm:text-sm font-semibold lg:text-lg flex-col justify-center">
-                    <p className="text-center">{pedido}</p>
+                <div className="flex items-center pl-2 pr-2 text-xs sm:text-sm font-semibold lg:text-lg flex-col justify-center">
+                    <p className="text-center">
+                        <a className="text-blue-400" target="_blank" href={window.location.origin + "/pedido?pedido=" + pedido}>{pedido}</a>
+                    </p>
                 </div>
             </td>
             <td>
-                <div className="flex items-center  flex-col justify-center">
+                <div className="flex items-center pl-2 pr-2  flex-col justify-center">
                     {
                         itens.map(item => (
                             <div className="flex items-center h-[4rem]">
@@ -46,7 +48,7 @@ function Row(props) {
                 </div>
             </td>
             <td>
-                <div className="flex items-center flex-col justify-center">
+                <div className="flex items-center pl-2 pr-2 flex-col justify-center">
                     <p className="text-center">{situacao}</p>
                 </div>
             </td>
@@ -59,7 +61,7 @@ export default (props) => {
     const [pedidos, setPedidos] = useState([])
 
     useEffect(() => {
-        api.get("/pedidos?itens=true&idlista=" + id)
+        api.get("/pedidos?itens=true&idLista=" + id)
             .then(res => {
                 const { data } = res
                 setPedidos(data.response)

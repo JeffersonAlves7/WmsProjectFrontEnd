@@ -10,7 +10,8 @@ import {
     ListaSituacao,
     ListaDeSeparacao,
 
-    Historico
+    Historico,
+    Pedido
 } from '../Views/index';
 
 import {
@@ -25,16 +26,17 @@ export default function AppRoutes() {
             <Routes>
                 <Route path="/" element={<Home />} />
 
+                <Route path="/historico" element={<Historico />} />
+                <Route path="/pedido" element={<Pedido />} />
+
                 <Route path="/embalar" element={<Embalar />} />
                 <Route path="/listaAtiva" element={<ListaAtiva />} />
                 <Route path="/checkout" element={<Checkout />} />
 
                 <Route path="/listas" element={<ListaSituacao />} />
-                <Route path="/listapedido" element={<ListaPedidos />} />
+                <Route path="/listapedidos" element={<ListaPedidos />} />
                 <Route path="/listadecoleta" element={<ListaDeColeta />} />
                 <Route path="/listadeseparacao" element={<ListaDeSeparacao />} />
-
-                <Route path="/historico" element={<Historico />} />
             </Routes>
         </BrowserRouter>
     )

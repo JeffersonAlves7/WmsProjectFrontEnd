@@ -42,6 +42,7 @@ function TableHead(props) {
 
 function TableBody(props) {
     const { listas, state, canal } = props
+
     function Row(props) {
         const { id, pedidos } = props
 
@@ -66,9 +67,20 @@ function TableBody(props) {
             }
             return <></>
         }
+        function Id({ id, situacao }) {
+            if (situacao == "criar") return <p>{id}</p>
+            return (
+                <a target="_blank" className='text-blue-500 p-4 hover:text-wmsPink' href={window.location.origin + "/listapedidos?lista=" + id}>
+                    {id}
+                </a>
+            )
+        }
+
         return (
             <tr className='grid grid-cols-4 items-center text-center justify-items-center border-b-2 border-b-wmsGrey'>
-                <td className='p-2'>{id}</td>
+                <td className='p-2'>
+                    <Id {...props} />
+                </td>
                 <td> <Image {...props} /></td>
                 <td>{pedidos}</td>
                 <td>

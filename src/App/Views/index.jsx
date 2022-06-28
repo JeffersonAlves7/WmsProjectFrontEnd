@@ -1,13 +1,19 @@
+//  -------- Componente global  --------  //
 import Header from '../Components/Header/index'
+// -----------------------------------------//
 import V_Home from './Home/index'
-import V_ListasSituacao from './ListasSituacao/index'
+
+import V_Historico from './Historico/index'
+import V_Pedido from './Pedido/index'
+
 import V_Embalar from './Embalar/index'
 import V_ListaAtiva from './ListaAtiva/index'
 import V_Checkout from './Checkout/index'
+
+import V_ListasSituacao from './ListasSituacao/index'
 import V_ListaPedidos from './ListaPedidos/index'
 import V_ListaDeColeta from './ListaDeColeta/index'
 import V_ListaDeSeparacao from './ListaDeSeparacao/index'
-import V_Historico from './Historico/index'
 
 function Home() {
     return (
@@ -122,6 +128,20 @@ function Historico() {
         </>
     )
 }
+function Pedido() {
+    const data = window.location.search.replace('?', '').split('=') //Must be an arr with ["lista", id:number]
+
+    return (
+        <>
+            <Header />
+            <main className='m-auto flex justify-center'>
+                <div className='flex pt-[10rem] flex-col gap-[2rem]'>
+                    <V_Pedido pedido={data[1]} />
+                </div>
+            </main>
+        </>
+    )
+}
 
 
-export { Home, ListaSituacao, Embalar, ListaAtiva, Checkout, ListaPedidos, ListaDeColeta, ListaDeSeparacao, Historico }
+export { Home, ListaSituacao, Embalar, ListaAtiva, Checkout, ListaPedidos, ListaDeColeta, ListaDeSeparacao, Historico, Pedido }

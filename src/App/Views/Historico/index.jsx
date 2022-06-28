@@ -1,6 +1,7 @@
 import { BiSearch } from "react-icons/bi"
 import { useState, useEffect } from 'react'
 import api from "../../api"
+
 import MagaluLogo from "../../img/magalulogo.png"
 import MercadoLogo from "../../img/mercadolivrelogo.png"
 import ShopeeLogo from "../../img/shopeelogo.png"
@@ -29,8 +30,9 @@ function TableBody(props) {
             <tr className='grid grid-cols-4 items-center text-center justify-items-center border-b-2 border-b-wmsGrey'>
                 <td className='p-2'>
                     <div>
-                        <p>{pedido}</p>
-                        <p>{nf}</p>
+                        <a className="text-blue-400" target="_blank" href={window.location.origin + "/pedido?pedido=" + pedido}>
+                            <p>{pedido}</p><p>{nf}</p>
+                        </a>
                     </div>
                 </td>
                 <td>
