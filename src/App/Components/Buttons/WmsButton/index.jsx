@@ -17,7 +17,7 @@ function Button(props) {
 export default (props) => {
     const { type } = props
 
-    const className = "p-1 hover:cursor-pointer pl-4 pr-4 text-center font-semibold block text-md bg-wmsLightPink hover:bg-cyan-300 rounded shadow-md"
+    const className = "p-1 hover:cursor-pointer text-sm sm:pl-4 sm:pr-4 sm:text-md text-center font-semibold block  bg-wmsLightPink hover:bg-cyan-300 rounded shadow-md"
 
     if (type == "button") return (<Button className={className} {...props} />)
     if (type == "link") return (<Link className={className} {...props} />)

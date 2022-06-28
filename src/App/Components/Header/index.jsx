@@ -8,7 +8,7 @@ export default function Header() {
 
     const navClass = {
         true: "left-[0]",
-        false: "left-[-100%]"
+        false: "sm:left-[-35%] left-[-100%]"
     }
 
     return (
@@ -21,7 +21,7 @@ export default function Header() {
                     <img src={barrareylogopainel} alt="" className='max-w-[200px]' />
                 </a>
             </main>
-            <nav className={navClass[menuState] + " w-[100%] z-10 top-0 sm:w-[200px] fixed transition-all h-screen ease-in-out duration-700 bg-wmsGrey"}>
+            <nav className={navClass[menuState] + " w-[100%] z-10 top-0 sm:w-[200px] fixed transition-all h-screen ease-in-out duration-500 bg-wmsGrey"}>
                 <Links />
             </nav>
         </header>

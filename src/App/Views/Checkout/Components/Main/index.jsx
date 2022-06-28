@@ -11,8 +11,6 @@ export default (props) => {
     if (!itens[0]) return
 
     return (
-        <main className="flex flex-col gap-2">
-            <Management itens={itens} nf={props.nf} chavedeacesso={props.chavedeacesso} />
-        </main>
+        <Management itens={itens} nf={props.nf} chavedeacesso={props.chavedeacesso} />
     )
 }

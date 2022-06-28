@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import api from "../../api"
-import Barcode from "react-barcode"
 import { AiFillPrinter } from 'react-icons/ai'
 
 function Row(props) {

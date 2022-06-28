@@ -6,7 +6,7 @@ export default function PedidosEmbalados() {
     const [quantidade, setQuantidade] = useState(null);
 
     useEffect(() => {
-        api.get('/pedidos?situacao=Embalados').then((res) => {
+        api.get('/pedidos?situacao=embalados').then((res) => {
             const { data } = res
             setQuantidade(data.response.length)
         });

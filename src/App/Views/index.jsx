@@ -1,12 +1,13 @@
 import Header from '../Components/Header/index'
 import V_Home from './Home/index'
-import V_Lista from './Listas/index'
+import V_ListasSituacao from './ListasSituacao/index'
 import V_Embalar from './Embalar/index'
 import V_ListaAtiva from './ListaAtiva/index'
 import V_Checkout from './Checkout/index'
 import V_ListaPedidos from './ListaPedidos/index'
 import V_ListaDeColeta from './ListaDeColeta/index'
 import V_ListaDeSeparacao from './ListaDeSeparacao/index'
+import V_Historico from './Historico/index'
 
 function Home() {
     return (
@@ -20,13 +21,13 @@ function Home() {
         </>
     )
 }
-function Listas() {
+function ListaSituacao() {
     return (
         <>
             <Header />
             <main className='m-auto flex justify-center'>
                 <div className='flex pt-[10rem] pl-2 pr-2 lg:pl-0 lg:pr-0 flex-col gap-[5rem]'>
-                    <V_Lista />
+                    <V_ListasSituacao />
                 </div>
             </main>
         </>
@@ -65,12 +66,10 @@ function ListaAtiva() {
 }
 function Checkout() {
     const data = window.location.search.replace('?', '').split('=') //Must be an arr with ["lista", id:number]
-
     if (data.length < 2 || data[0] != "chavedeacesso") {
         window.location.assign(window.location.origin + '/embalar')
         return <></>
     }
-
     return (
         <>
             <Header />
@@ -111,5 +110,18 @@ function ListaDeSeparacao() {
         <V_ListaDeSeparacao id={data[1]} />
     )
 }
+function Historico() {
+    return (
+        <>
+            <Header />
+            <main className='m-auto flex justify-center'>
+                <div className='flex pt-[10rem] flex-col gap-[2rem]'>
+                    <V_Historico />
+                </div>
+            </main>
+        </>
+    )
+}
 
-export { Home, Listas, Embalar, ListaAtiva, Checkout, ListaPedidos, ListaDeColeta, ListaDeSeparacao }
+
+export { Home, ListaSituacao, Embalar, ListaAtiva, Checkout, ListaPedidos, ListaDeColeta, ListaDeSeparacao, Historico }

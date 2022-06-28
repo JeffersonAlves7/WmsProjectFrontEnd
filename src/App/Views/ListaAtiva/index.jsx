@@ -22,7 +22,6 @@ export default (props) => {
                     if (inputValue == "") return;
 
                     const ifExistis = await scanPedido(inputValue, props.id) //Inserting the id on the scanlist function
-
                     if (!ifExistis) return;
 
                     window.location.assign(window.location.origin + '/checkout?chavedeacesso=' + inputValue)

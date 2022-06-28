@@ -23,7 +23,7 @@ export default (props) => {
         api.get(`/pedidos?chavedeacesso=${chavedeacesso}&itens=true`).then((res) => {
             const { data } = res
 
-            if ((data.response[0].situacao).toLowerCase() !== "criar") {
+            if ((data.response[0].situacao).toLowerCase() !== "emaberto") {
                 window.location.replace(window.location.origin + '/embalar')
                 return
             }

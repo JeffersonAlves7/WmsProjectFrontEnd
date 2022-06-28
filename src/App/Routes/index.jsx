@@ -1,12 +1,16 @@
 import {
     Home,
-    Listas,
+
     Embalar,
     Checkout,
     ListaAtiva,
+
     ListaPedidos,
     ListaDeColeta,
-    ListaDeSeparacao
+    ListaSituacao,
+    ListaDeSeparacao,
+
+    Historico
 } from '../Views/index';
 
 import {
@@ -21,16 +25,16 @@ export default function AppRoutes() {
             <Routes>
                 <Route path="/" element={<Home />} />
 
-                <Route path="/listas" element={<Listas />} />
-
                 <Route path="/embalar" element={<Embalar />} />
                 <Route path="/listaAtiva" element={<ListaAtiva />} />
                 <Route path="/checkout" element={<Checkout />} />
 
+                <Route path="/listas" element={<ListaSituacao />} />
                 <Route path="/listapedido" element={<ListaPedidos />} />
                 <Route path="/listadecoleta" element={<ListaDeColeta />} />
                 <Route path="/listadeseparacao" element={<ListaDeSeparacao />} />
-                {/* <Route path="/listareimprimir" element={<ListaDeSeparacao />} /> */}
+
+                <Route path="/historico" element={<Historico />} />
             </Routes>
         </BrowserRouter>
     )
