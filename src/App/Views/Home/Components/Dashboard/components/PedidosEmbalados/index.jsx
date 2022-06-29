@@ -13,6 +13,6 @@ export default function PedidosEmbalados() {
     }, [])
 
     return (
-        <Painel span={quantidade} title="Pedidos Embalados" />
+        <Painel span={quantidade > 0 ? quantidade : 0} title="Pedidos Embalados" />
     )
 }
