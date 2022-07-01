@@ -9,13 +9,6 @@ async function atualizarListaSituacao(situacao, id) {
             })
             window.location.reload()
             return true
-        case 'finalizado':
-            await api.put(`/listas`, {
-                id,
-                situacao
-            })
-            window.location.reload()
-            return true
     }
     return false
 }

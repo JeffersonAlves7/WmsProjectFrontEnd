@@ -11,6 +11,6 @@ export default (props) => {
     if (!itens[0]) return
 
     return (
-        <Management itens={itens} nf={props.nf} chavedeacesso={props.chavedeacesso} />
+        <Management {...props} />
     )
 }

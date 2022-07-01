@@ -5,9 +5,11 @@ import { BsFillCheckSquareFill } from "react-icons/bs"
 import servicesConfig from "../../../../config/services.json"
 import atualizarPedido from '../../../../api/modules/atualizarPedido'
 
+
+
 export default (props) => {
     let itens = props.itens
-    const { nf, chavedeacesso } = props
+    const { nf, chavedeacesso, idLista } = props
 
     itens.forEach(item => item.conferido = false)
     itens.forEach(item => item.totalConferido = 0)
@@ -94,6 +96,55 @@ export default (props) => {
         document.getElementById('form-area').classList.add('hidden')
     }
 
+    async function enviarPedido(){
+      const response = await atualizarPedido('embalado', chavedeacesso) //response será um boolean
+      if (!response) return
+      window.location.assign(window.location.origin + "/listaAtiva?lista=" + idLista)
+    }
+    function executarPedido(){
+      if (myItens[myItens.length - 1].conferido === true) return //Apenas para ver se tudo ja foi feito antes de comecar a funcao
+      // Primeiro precisamos separar o que n sera usado, ou seja o que ja foi bipado
+      // Com isso posso usar a funcao filter que retorna o novo valor
+
+      let itens = myItens
+
+      let item = itens.filter(i => i.conferido == false)[0] //Primeiro item do arr
+      // Com isso podemos pegar os valores passados pelo input e checarmos se esta batendo com o valor desejado
+      const inputText = document.querySelector('#form-area > input')
+      console.log(item)
+      if (inputText.value !== item.sku) { inputText.value = ''; return } //Aqui retornara a funcao caso os valores nao estejam corretos
+      inputText.value = ''
+
+      if (item.totalConferido != item.quantidade) { //Setando item para a quantidade apos termos bipado
+          item = updateItens(item, itens)
+      }
+
+      if (item.totalConferido == item.quantidade) { //Verificando se todas as bipagens foram feitas
+          item.conferido = true
+      }
+
+      let index = 0
+
+      for (let i = 0; i < itens.length; i++) {
+          if (itens[i].sku == item.sku) index = i
+      }
+      itens[index] = item
+      setItens(itens)
+
+      if (myItens[myItens.length - 1].conferido === true) {
+          document.querySelector('#box-checkout > div > footer').style = "background-color: lightgreen"
+          finalizado(itens)
+          return
+      };
+
+      //Nesse ponto tudo ja acabou entao preciso ou resetar as fotos ou finalizar tudo eliminando as imagens etc
+      itens = myItens
+      item = itens.filter(i => i.conferido == false)[0] //Primeiro item do arr
+
+      updateItens(item, itens, true)
+      finalizado(itens)
+    }
+
     useEffect(() => {
         updateItens(myItens.filter(item => item.conferido == false)[0], myItens, true)
     }, [])
@@ -132,8 +183,8 @@ export default (props) => {
                             Confirmar
                         </button>
                         <button id='confirmar-t' className='p-2 rounded hidden bg-green-500 min-w-max' type='button' onClick={
-                            () => {
-                                atualizarPedido('Embalado', chavedeacesso)
+                           () => {
+                               enviarPedido()
                             }
                         }>
                             Confirmar
@@ -160,49 +211,12 @@ export default (props) => {
                 </section>
             </div>
             <div id='form-area' className='flex w-full p-2  items-center justify-between lg:justify-start gap-2 sm:gap-[2rem] '>
-                <input type="text" className='border border-wmsPink p-1 sm:p-2 w-[17rem] sm:w-[24rem] rounded text-lg h-[4rem] sm:text-xl' placeholder='Escanear ou inserir sku do produto' />
+                <input onKeyDown={({key})=>{
+                  if(key!=="Enter")return;
+                  executarPedido()
+                }} type="text" className='border border-wmsPink p-1 sm:p-2 w-[17rem] sm:w-[24rem] rounded text-lg h-[4rem] sm:text-xl' placeholder='Escanear ou inserir sku do produto' />
                 <WmsButton type="button" text="Enviar" fn={() => {
-                    if (myItens[myItens.length - 1].conferido === true) return //Apenas para ver se tudo ja foi feito antes de comecar a funcao
-                    // Primeiro precisamos separar o que n sera usado, ou seja o que ja foi bipado
-                    // Com isso posso usar a funcao filter que retorna o novo valor
-
-                    let itens = myItens
-
-                    let item = itens.filter(i => i.conferido == false)[0] //Primeiro item do arr
-                    // Com isso podemos pegar os valores passados pelo input e checarmos se esta batendo com o valor desejado
-                    const inputText = document.querySelector('#form-area > input')
-                    console.log(item)
-                    if (inputText.value !== item.sku) { inputText.value = ''; return } //Aqui retornara a funcao caso os valores nao estejam corretos
-                    inputText.value = ''
-
-                    if (item.totalConferido != item.quantidade) { //Setando item para a quantidade apos termos bipado
-                        item = updateItens(item, itens)
-                    }
-
-                    if (item.totalConferido == item.quantidade) { //Verificando se todas as bipagens foram feitas
-                        item.conferido = true
-                    }
-
-                    let index = 0
-
-                    for (let i = 0; i < itens.length; i++) {
-                        if (itens[i].sku == item.sku) index = i
-                    }
-                    itens[index] = item
-                    setItens(itens)
-
-                    if (myItens[myItens.length - 1].conferido === true) {
-                        document.querySelector('#box-checkout > div > footer').style = "background-color: lightgreen"
-                        finalizado(itens)
-                        return
-                    };
-
-                    //Nesse ponto tudo ja acabou entao preciso ou resetar as fotos ou finalizar tudo eliminando as imagens etc
-                    itens = myItens
-                    item = itens.filter(i => i.conferido == false)[0] //Primeiro item do arr
-
-                    updateItens(item, itens, true)
-                    finalizado(itens)
+                  executarPedido()
                 }} />
             </div>
         </main>

@@ -7,14 +7,14 @@ function Row(props) {
     const { nf, chavedeacesso, pedido, integracao, itens } = props
     return (
         <tr>
-            <td className="p-1">{nf}</td>
-            <td className="p-1">
+            <td className="text-xs">{nf}</td>
+            <td className="text-xs">
                 <Barcode value={chavedeacesso} height={60} width={1} fontSize={11} />
             </td>
-            <td className="p-1 font-semibold">{itens.map(({ sku }) => sku)}</td>
-            <td className="p-1 text-xs">{pedido}</td>
-            <td className="p-1">{integracao}</td>
-            <td className="p-1">{itens.map(({ quantidade }) => quantidade)}</td>
+            <td className="text-xs font-semibold">{itens.map(({ sku }) => sku)}</td>
+            <td className="p-2 text-xs">{pedido}</td>
+            <td className="text-xs">{integracao}</td>
+            <td className="text-xs">{itens.map(({ quantidade }) => quantidade)}</td>
         </tr>
     )
 }

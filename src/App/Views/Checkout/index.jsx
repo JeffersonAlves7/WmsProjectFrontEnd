@@ -30,7 +30,6 @@ export default (props) => {
             setPedido(data.response[0])
         })
     }, [])
-
     return (
         <>
             <header className="flex w-full gap-2 text-md sm:text-lg text-center lg:text-2xl pr-[2rem] pl-[2rem] font-bold break-words justify-between">

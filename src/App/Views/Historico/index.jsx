@@ -9,8 +9,10 @@ import CorreiosLogo from "../../img/correioslogo.png"
 
 function TableBody(props) {
     const { pedidos, status, canal, busca } = props
+
     function Row(props) {
         const { pedido, nf, situacao, itens } = props
+
         function ImageLogo({ integracao }) {
             if (integracao == "IntegraCommerce") return <img className="max-w-[70px]" src={MagaluLogo} alt="" />
             if (integracao == "MercadoLivre") return <img className="max-w-[70px]" src={MercadoLogo} alt="" />
@@ -27,10 +29,10 @@ function TableBody(props) {
             )
         }
         return (
-            <tr className='grid grid-cols-4 items-center text-center justify-items-center border-b-2 border-b-wmsGrey'>
+            <tr className='grid grid-cols-4 items-center w-[65rem] text-center justify-items-center border-b-2 border-b-wmsGrey'>
                 <td className='p-2'>
                     <div>
-                        <a className="text-blue-400" target="_blank" href={window.location.origin + "/pedido?pedido=" + pedido}>
+                        <a className="text-blue-400" href={window.location.origin + "/pedido?pedido=" + pedido}>
                             <p>{pedido}</p><p>{nf}</p>
                         </a>
                     </div>
@@ -47,6 +49,7 @@ function TableBody(props) {
             </tr>
         )
     }
+
     if (busca != "") {
         return pedidos.filter(pedido => pedido.nf === busca || pedido.pedido === busca).map(pedido => <Row {...pedido} />)
     }
@@ -54,6 +57,7 @@ function TableBody(props) {
         return pedidos.filter(pedido => pedido.integracao === canal && pedido.situacao.toLowerCase() === status).map(pedido => <Row {...pedido} />)
     }
     if (canal != "todos") {
+        if(canal === "Correios") return pedidos.filter(pedido => ["SkyHub", "Kabum"].indexOf(pedido.integracao) > -1 ).map(pedido => <Row {...pedido} />)
         return pedidos.filter(pedido => pedido.integracao === canal).map(pedido => <Row {...pedido} />)
     }
     if (status != "todos") {
@@ -123,16 +127,16 @@ export default function Historico() {
                             <BiSearch fontSize={20} />
                         </button>
                     </div>
-                    <div id="status" className="flex gap-2 items-center border border-wmsGrey shadow-sm rounded-lg">
+                    <div id="status" className="filterSelect">
                         <label htmlFor="seletorStatus" className="border-r border-wmsGrey pl-2 pr-2">Status</label>
-                        <select name="integracao" className=" p-1 outline-none" onClick={(e) => updateState()} id="seletorStatus">
+                        <select name="integracao" className="p-1 outline-none" onClick={(e) => updateState()} id="seletorStatus">
                             <option value="todos">Todos</option>
                             <option value="emaberto">Em Aberto</option>
                             <option value="embalado">Embalado</option>
                             <option value="finalizado">Finalizado</option>
                         </select>
                     </div>
-                    <div id="canais" className="flex gap-2 items-center border border-wmsGrey shadow-sm rounded-lg">
+                    <div id="canais" className="filterSelect">
                         <label htmlFor="seletorCanais" className="border-r border-wmsGrey pl-2 pr-2">Canais</label>
                         <select name="integracao" className=" p-1 outline-none" onClick={(e) => updateCanal()} id="seletorCanais">
                             <option value="todos">Todos</option>
@@ -145,7 +149,7 @@ export default function Historico() {
                 </div>
             </header>
             <main>
-                <table className="w-full">
+                <table>
                     <thead>
                         <tr className="grid grid-cols-4 justify-items-center text-xl border-b-2 border-b-wmsGrey">
                             <th>

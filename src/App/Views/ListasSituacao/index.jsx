@@ -8,8 +8,8 @@ import ShopeeLogo from "../../img/shopeelogo.png"
 import CorreiosLogo from "../../img/correioslogo.png"
 
 function TableHead(props) {
-    const { situacao } = props
-    if (situacao == "finalizado") return (
+    const { state } = props
+    if (state == "finalizado") return (
         <tr className="grid grid-cols-4 justify-items-center text-xl border-b-2 border-b-wmsGrey">
             <th>
                 <p>ID la Lista</p>
@@ -65,12 +65,13 @@ function TableBody(props) {
                     <a href={window.location.origin + "/listadeseparacao?id=" + id} target="_blank" className='bg-wmsPink p-1 block rounded'>Imprimir lista com produtos</a>
                 </div>
             }
-            return <></>
+            return <p>{situacao}</p>
         }
+
         function Id({ id, situacao }) {
             if (situacao == "criar") return <p>{id}</p>
             return (
-                <a target="_blank" className='text-blue-500 p-4 hover:text-wmsPink' href={window.location.origin + "/listapedidos?lista=" + id}>
+                <a className='text-blue-500 p-4 hover:text-wmsPink' href={window.location.origin + "/listapedidos?lista=" + id}>
                     {id}
                 </a>
             )
@@ -130,9 +131,9 @@ export default () => {
         <>
             <header className="flex gap-[10rem] sm:gap-[20rem] md:gap-[25rem]">
                 <h1 className="text-4xl font-bold">Selecionar</h1>
-                <div id="canais" className="flex gap-2 items-center  rounded-lg">
-                    <label htmlFor="seletorCanais">Canais:</label>
-                    <select name="integracao" onClick={(e) => updateCanal()} className="border shadow-sm p-1" id="seletorCanais">
+                <div id="canais" className="filterSelect">
+                    <label htmlFor="seletorCanais" className='border-r border-wmsGrey pl-2 pr-2'>Canais:</label>
+                    <select className='p-1 outline-none' name="integracao" onClick={(e) => updateCanal()} id="seletorCanais">
                         <option value="todos">Todos</option>
                         <option value="MercadoLivre">Mercado Coletas</option>
                         <option value="IntegraCommerce">Magalu Coletas</option>
