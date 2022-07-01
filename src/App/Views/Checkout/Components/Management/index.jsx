@@ -96,53 +96,53 @@ export default (props) => {
         document.getElementById('form-area').classList.add('hidden')
     }
 
-    async function enviarPedido(){
-      const response = await atualizarPedido('embalado', chavedeacesso) //response será um boolean
-      if (!response) return
-      window.location.assign(window.location.origin + "/listaAtiva?lista=" + idLista)
+    async function enviarPedido() {
+        const response = await atualizarPedido('embalado', chavedeacesso) //response será um boolean
+        if (!response) return
+        window.location.assign(window.location.origin + "/listaAtiva?lista=" + idLista)
     }
-    function executarPedido(){
-      if (myItens[myItens.length - 1].conferido === true) return //Apenas para ver se tudo ja foi feito antes de comecar a funcao
-      // Primeiro precisamos separar o que n sera usado, ou seja o que ja foi bipado
-      // Com isso posso usar a funcao filter que retorna o novo valor
+    function executarPedido() {
+        if (myItens[myItens.length - 1].conferido === true) return //Apenas para ver se tudo ja foi feito antes de comecar a funcao
+        // Primeiro precisamos separar o que n sera usado, ou seja o que ja foi bipado
+        // Com isso posso usar a funcao filter que retorna o novo valor
 
-      let itens = myItens
+        let itens = myItens
 
-      let item = itens.filter(i => i.conferido == false)[0] //Primeiro item do arr
-      // Com isso podemos pegar os valores passados pelo input e checarmos se esta batendo com o valor desejado
-      const inputText = document.querySelector('#form-area > input')
-      console.log(item)
-      if (inputText.value !== item.sku) { inputText.value = ''; return } //Aqui retornara a funcao caso os valores nao estejam corretos
-      inputText.value = ''
+        let item = itens.filter(i => i.conferido == false)[0] //Primeiro item do arr
+        // Com isso podemos pegar os valores passados pelo input e checarmos se esta batendo com o valor desejado
+        const inputText = document.querySelector('#form-area > input')
+        console.log(item)
+        if (inputText.value !== item.sku) { inputText.value = ''; return } //Aqui retornara a funcao caso os valores nao estejam corretos
+        inputText.value = ''
 
-      if (item.totalConferido != item.quantidade) { //Setando item para a quantidade apos termos bipado
-          item = updateItens(item, itens)
-      }
+        if (item.totalConferido != item.quantidade) { //Setando item para a quantidade apos termos bipado
+            item = updateItens(item, itens)
+        }
 
-      if (item.totalConferido == item.quantidade) { //Verificando se todas as bipagens foram feitas
-          item.conferido = true
-      }
+        if (item.totalConferido == item.quantidade) { //Verificando se todas as bipagens foram feitas
+            item.conferido = true
+        }
 
-      let index = 0
+        let index = 0
 
-      for (let i = 0; i < itens.length; i++) {
-          if (itens[i].sku == item.sku) index = i
-      }
-      itens[index] = item
-      setItens(itens)
+        for (let i = 0; i < itens.length; i++) {
+            if (itens[i].sku == item.sku) index = i
+        }
+        itens[index] = item
+        setItens(itens)
 
-      if (myItens[myItens.length - 1].conferido === true) {
-          document.querySelector('#box-checkout > div > footer').style = "background-color: lightgreen"
-          finalizado(itens)
-          return
-      };
+        if (myItens[myItens.length - 1].conferido === true) {
+            document.querySelector('#box-checkout > div > footer').style = "background-color: lightgreen"
+            finalizado(itens)
+            return
+        };
 
-      //Nesse ponto tudo ja acabou entao preciso ou resetar as fotos ou finalizar tudo eliminando as imagens etc
-      itens = myItens
-      item = itens.filter(i => i.conferido == false)[0] //Primeiro item do arr
+        //Nesse ponto tudo ja acabou entao preciso ou resetar as fotos ou finalizar tudo eliminando as imagens etc
+        itens = myItens
+        item = itens.filter(i => i.conferido == false)[0] //Primeiro item do arr
 
-      updateItens(item, itens, true)
-      finalizado(itens)
+        updateItens(item, itens, true)
+        finalizado(itens)
     }
 
     useEffect(() => {
@@ -171,26 +171,44 @@ export default (props) => {
                         <BsFillCheckSquareFill />
                         <h2 >-Conferência completa</h2>
                     </header>
-                    <main>
-                        <a className='p-2 rounded bg-green-500' onClick={() => {
+
+                    <main className="flex flex-col gap-2 items-start">
+                        <button className='p-2 rounded bg-green-500' onClick={() => {
                             document.getElementById("confirmar-f").classList.add('hidden')
                             document.getElementById("confirmar-t").classList.remove('hidden')
-                        }
-                        } href={servicesConfig.api.baseURL + "/notas?nf=" + nf} target="_blank">Imprimir NF e Etiqueta</a>
-                    </main>
-                    <footer>
+
+                            function appendIframe() {
+                                const divToAppend = document.getElementById('append-iframe')
+
+                                if (divToAppend.childNodes.length > 0) return;
+
+                                const iFrame = document.createElement('iframe');
+                                iFrame.src = servicesConfig.api.baseURL + "/notas?nf=" + nf
+                                iFrame.style = `
+                                    width: 30rem;
+                                    height: 35rem;
+                                    top: 0;
+                                    z-index: 1000;
+                                `
+
+                                divToAppend.appendChild(iFrame)
+                            }
+                            appendIframe()
+                        }}>Imprimir NF e Etiqueta</button>
                         <button id='confirmar-f' className='p-2 rounded disabled:bg-green-100' type='button' disabled>
                             Confirmar
                         </button>
+
                         <button id='confirmar-t' className='p-2 rounded hidden bg-green-500 min-w-max' type='button' onClick={
-                           () => {
-                               enviarPedido()
+                            () => {
+                                enviarPedido()
                             }
                         }>
                             Confirmar
                         </button>
-                    </footer>
+                    </main>
                 </section>
+                <div id="append-iframe"></div>
                 <section id='box-checkout' className='flex gap-1 sm:gap-2 items-center justify-center w-full lg:w-[20rem]'>
                     <div className='border-wmsGrey flex  flex-col justify-between text-sm sm:text-md  w-full lg:text-xl border rounded-lg shadow-xl  '>
                         <header className='font-semibold h-[15%] border-b p-2  border-wmsGrey'>
@@ -211,14 +229,15 @@ export default (props) => {
                 </section>
             </div>
             <div id='form-area' className='flex w-full p-2  items-center justify-between lg:justify-start gap-2 sm:gap-[2rem] '>
-                <input onKeyDown={({key})=>{
-                  if(key!=="Enter")return;
-                  executarPedido()
+                <input onKeyDown={({ key }) => {
+                    if (key !== "Enter") return;
+                    executarPedido()
                 }} type="text" className='border border-wmsPink p-1 sm:p-2 w-[17rem] sm:w-[24rem] rounded text-lg h-[4rem] sm:text-xl' placeholder='Escanear ou inserir sku do produto' />
                 <WmsButton type="button" text="Enviar" fn={() => {
-                  executarPedido()
+                    executarPedido()
                 }} />
             </div>
+
         </main>
     )
 }
