@@ -3,25 +3,31 @@ import scanPedido from "../../api/modules/scanPedido"
 import { useState, useEffect } from "react"
 import api from "../../api"
 
-async function enviar(props){
-  const inputValue = document.querySelector('input#input_pedido').value
+async function enviar(props) {
+    const inputValue = document.querySelector('input#input_pedido').value
 
-  if (inputValue == "") return;
+    if (inputValue == "") return;
 
-  const ifExistis = await scanPedido(inputValue, props.id) //Inserting the id on the scanlist function
-  if (!ifExistis) return;
+    const ifExistis = await scanPedido(inputValue, props.id) //Inserting the id on the scanlist function
+    if (!ifExistis) return;
 
-  window.location.assign(window.location.origin + '/checkout?chavedeacesso=' + inputValue)
+    window.location.assign(window.location.origin + '/checkout?chavedeacesso=' + inputValue)
 }
 
 function Scanner(props) {
     return (
-        <input type="text" onKeyDown={(e)=>{
-          const { key } = e
-          if(key!=="Enter") return;
-          enviar(props)
-        }} name="pedidoInput" id="input_pedido" placeholder="Escanear ou inserir chave de acesso do pedido" className="border pt-4 pb-4 pl-4 pr-4 rounded-md border-wmsLightPink outline-none text-2xl w-[35rem]" />
+        <input type="text" onKeyDown={(e) => {
+            const { key } = e
+            if (key !== "Enter") return;
+            enviar(props)
+        }} name="pedidoInput" id="input_pedido" autoFocus={true} placeholder="Escanear ou inserir chave de acesso do pedido" className="border pt-4 pb-4 pl-4 pr-4 rounded-md border-wmsLightPink outline-none text-2xl w-[35rem]" />
     )
+}
+
+function checkMessageAndThrow(message) {
+    if (!message) return
+    const messageArea = document.getElementById("messageArea")
+    messageArea.innerText = "ERROR: " + message.replaceAll("+", " ")
 }
 
 export default (props) => {
@@ -38,8 +44,9 @@ export default (props) => {
                     embalado: embalado,
                     total: total
                 })
+                checkMessageAndThrow(props.message)
             })
-    })
+    }, [])
 
     return (
         <>
@@ -47,11 +54,14 @@ export default (props) => {
                 <h1 className="text-2xl font-bold">Lista de Coleta Ativa: {props.id}</h1>
                 <p>{info.embalado}/{info.total}</p>
             </header>
-            <main className="flex gap-10 items-center">
-                <Scanner {...props}/>
-                <Button type="button" text="Escanear" fn={async () => {
-                  enviar(props)
-                }} />
+            <main className="flex gap-10 flex-col items-start">
+                <div className="flex gap-10 items-center">
+                    <Scanner {...props} />
+                    <Button type="button" text="Escanear" fn={async () => {
+                        enviar(props)
+                    }} />
+                </div>
+                {props.message ? <p className="p-2  text-red-400 border-wmsLightPink border-2 rounded-lg shadow-lg" id="messageArea"></p> : <></>}
             </main>
         </>
     )

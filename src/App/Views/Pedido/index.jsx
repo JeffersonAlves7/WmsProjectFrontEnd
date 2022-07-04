@@ -22,10 +22,10 @@ function TableBody(props) {
 
     return (
         <tr className="grid grid-cols-4 justify-items-center border-b-2 border-black items-center">
-            <th className="pt-2 pb-2">
+            <th className="pt-2 pb-2 ">
                 {itens.map(item =>
-                    <div>
-                        {item.imagem.url ? <img src={item.imagem.url} alt="" /> : <></>}
+                    <div className="flex items-center">
+                        {item.imagem.url ? <img src={item.imagem.url} className="max-w-[90px]" alt="" /> : <></>}
                         <p className="font-normal">{item.descricao}</p>
                     </div>
                 )}

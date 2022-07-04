@@ -154,7 +154,7 @@ export default (props) => {
             <div className='flex flex-[2] flex-col lg:flex-row p-2 w-full gap-2'>
                 <section id='box-items' className='flex gap-1 sm:gap-2 items-center justify-between'>
                     <div className='p-2 border border-wmsGrey  rounded-lg shadow-xl'>
-                        <img className='w-[12rem] h-[12rem]' id='img-items' alt="Item" />
+                        <img className='w-[10rem] h-[10rem] sm:w-[12rem] sm:h-[12rem]' id='img-items' alt="Item" />
                     </div>
                     <div className='flex flex-col text-sm sm:text-lg w-[10rem] sm:w-[18rem]'>
                         <div>
@@ -173,10 +173,8 @@ export default (props) => {
                     </header>
 
                     <main className="flex flex-col gap-2 items-start">
-                        <button className='p-2 rounded bg-green-500' onClick={() => {
-                            document.getElementById("confirmar-f").classList.add('hidden')
-                            document.getElementById("confirmar-t").classList.remove('hidden')
-
+                        <button className='p-2 rounded bg-green-500 disabled:bg-green-100' onClick={(e) => {
+                            document.getElementById("confirmar").disabled = false;
                             function appendIframe() {
                                 const divToAppend = document.getElementById('append-iframe')
 
@@ -193,13 +191,10 @@ export default (props) => {
 
                                 divToAppend.appendChild(iFrame)
                             }
+                            e.target.disabled = true
                             appendIframe()
                         }}>Imprimir NF e Etiqueta</button>
-                        <button id='confirmar-f' className='p-2 rounded disabled:bg-green-100' type='button' disabled>
-                            Confirmar
-                        </button>
-
-                        <button id='confirmar-t' className='p-2 rounded hidden bg-green-500 min-w-max' type='button' onClick={
+                        <button id='confirmar' disabled className='p-2 rounded bg-green-500 disabled:bg-green-100 min-w-max' type='button' onClick={
                             () => {
                                 enviarPedido()
                             }
@@ -210,7 +205,7 @@ export default (props) => {
                 </section>
                 <div id="append-iframe"></div>
                 <section id='box-checkout' className='flex gap-1 sm:gap-2 items-center justify-center w-full lg:w-[20rem]'>
-                    <div className='border-wmsGrey flex  flex-col justify-between text-sm sm:text-md  w-full lg:text-xl border rounded-lg shadow-xl  '>
+                    <div className='border-wmsGrey flex flex-col justify-between text-sm sm:text-md  w-full lg:text-xl border rounded-lg shadow-xl  '>
                         <header className='font-semibold h-[15%] border-b p-2  border-wmsGrey'>
                             <h2>Leituras</h2>
                         </header>
@@ -229,13 +224,10 @@ export default (props) => {
                 </section>
             </div>
             <div id='form-area' className='flex w-full p-2  items-center justify-between lg:justify-start gap-2 sm:gap-[2rem] '>
-                <input onKeyDown={({ key }) => {
+                <input autoFocus={true} onKeyDown={({ key }) => {
                     if (key !== "Enter") return;
                     executarPedido()
-                }} type="text" className='border border-wmsPink p-1 sm:p-2 w-[17rem] sm:w-[24rem] rounded text-lg h-[4rem] sm:text-xl' placeholder='Escanear ou inserir sku do produto' />
-                <WmsButton type="button" text="Enviar" fn={() => {
-                    executarPedido()
-                }} />
+                }} type="text" className='border border-wmsPink p-1 sm:p-2 w-[20rem] sm:w-[30rem] rounded text-lg h-[4rem] sm:text-xl' placeholder='Escanear ou inserir sku do produto' />
             </div>
 
         </main>

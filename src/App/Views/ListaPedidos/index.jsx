@@ -3,6 +3,10 @@ import api from "../../api"
 
 function Row(props) {
     const { pedido, situacao, itens } = props
+    let textSituacao = ""
+    if (situacao === "emaberto") textSituacao = "Em aberto";
+    if (situacao === "embalado") textSituacao = "Embalado";
+    if (situacao === "finalizado") textSituacao = "Finalizado";
     // { descricao, codigo, quantidade } 
     return (
         <tr className="border-b-2 border-black  ">
@@ -32,7 +36,7 @@ function Row(props) {
             <td>
                 <div className="flex items-center pl-2 pr-2 text-xs sm:text-sm font-semibold lg:text-lg flex-col justify-center">
                     <p className="text-center">
-                        <a className="text-blue-400" target="_blank" href={window.location.origin + "/pedido?pedido=" + pedido}>{pedido}</a>
+                        <a className="text-blue-400" href={window.location.origin + "/pedido?pedido=" + pedido}>{pedido}</a>
                     </p>
                 </div>
             </td>
@@ -49,7 +53,7 @@ function Row(props) {
             </td>
             <td>
                 <div className="flex items-center pl-2 pr-2 flex-col justify-center">
-                    <p className="text-center">{situacao}</p>
+                    <p className="text-center">{textSituacao}</p>
                 </div>
             </td>
         </tr >

@@ -52,19 +52,46 @@ function Embalar() {
     )
 }
 function ListaAtiva() {
-    const data = window.location.search.replace('?', '').split('=') //Must be an arr with ["lista", id:number]
+    const { search } = window.location
+    const data = search.replace("?", "").split("&").map(item => item.split("="))
 
-    if (data.length < 2 || data[0] != "lista") {
+    let indexLista = -1;
+    let indexMessage = -1;
+
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].indexOf("lista") > -1) { indexLista = i; break }
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].indexOf("message") > -1) { indexMessage = i; break }
+    }
+    let message = null
+    if (indexMessage > -1) {
+        message = data[indexMessage][1]
+    }
+
+    if (indexLista === -1) {
         window.location.assign(window.location.origin + '/embalar')
         return <></>
     }
+
+    if (indexMessage !== -1) return (
+        <>
+            <Header />
+            <main className='m-auto flex justify-center'>
+                <div className='flex pt-[10rem] flex-col gap-[2rem]'>
+                    <V_ListaAtiva id={data[indexLista][1]} message={message} />
+                </div>
+            </main>
+        </>
+    )
 
     return (
         <>
             <Header />
             <main className='m-auto flex justify-center'>
                 <div className='flex pt-[10rem] flex-col gap-[2rem]'>
-                    <V_ListaAtiva id={data[1]} />
+                    <V_ListaAtiva id={data[indexLista][1]} />
                 </div>
             </main>
         </>

@@ -1,0 +1,4 @@
+Lugares para ter as mensagens de error:
+ - Checkout
+    - Ao acessar se não houver uma nota fiscal -"Pedido+pendente,+aguarde+alguns+minutos+e+tente+novamente+mais+tarde"
+    - Ao escanear um SKU - "SKU+inserido+nao+esta+presente+no+pedido"

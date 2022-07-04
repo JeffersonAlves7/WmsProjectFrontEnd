@@ -11,6 +11,33 @@ function Row(props) {
         </tr>
     )
 }
+function TableBody(props) {
+    const { itens } = props
+
+    function getValues(my_arr, key_principal, key_qnt) {
+        const values = []
+        for (let i = 0; i < my_arr.length; i++) {
+            const myValues = my_arr.filter(a => a[key_principal] === my_arr[i][key_principal])
+            const value_to_push = {
+                [key_principal]: myValues[0][key_principal],
+                [key_qnt]: myValues.length > 1 ? myValues.reduce((mut, now) => mut[key_qnt] ? mut[key_qnt] + now[key_qnt] : mut + now[key_qnt]) : myValues[0][key_qnt]
+            }
+            let response = false
+            for (let j = 0; j < values.length; j++) {
+                if (values[j][key_principal] === value_to_push[key_principal]) response = true;
+            }
+            if (response) continue;
+            values.push(value_to_push)
+        }
+        return values
+    }
+
+    return (
+        <tbody>
+            {getValues(itens, "sku", "quantidade").map(item => <Row {...item} />)}
+        </tbody>
+    )
+}
 
 export default function ListaDeSeparacao(props) {
     const [itens, setItens] = useState([{ sku: "", quantidade: 0 }])
@@ -51,9 +78,7 @@ export default function ListaDeSeparacao(props) {
                             <th className="">Qtd</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {itens.map(item => <Row {...item} />)}
-                    </tbody>
+                    <TableBody itens={itens} />
                 </table>
             </main>
         </div>

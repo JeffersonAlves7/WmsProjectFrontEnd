@@ -9,7 +9,8 @@ import CorreiosLogo from "../../img/correioslogo.png"
 
 function TableHead(props) {
     const { state } = props
-    if (state == "finalizado") return (
+
+    return (
         <tr className="grid grid-cols-4 justify-items-center text-xl border-b-2 border-b-wmsGrey">
             <th>
                 <p>ID la Lista</p>
@@ -22,19 +23,6 @@ function TableHead(props) {
             </th>
             <th>
                 <p>Status</p>
-            </th>
-        </tr>
-    )
-    return (
-        <tr className="grid grid-cols-4 justify-items-center text-xl border-b-2 border-b-wmsGrey">
-            <th>
-                <p>ID la Lista</p>
-            </th>
-            <th>
-                <p>Canal</p>
-            </th>
-            <th>
-                <p>Pedidos</p>
             </th>
         </tr>
     )
@@ -60,10 +48,12 @@ function TableBody(props) {
                 <WmsButton type="button" text="Gerar Lista" fn={() => atualizarListaSituacao('emaberto', id)} />
             )
             if (situacao.toLowerCase() === "emaberto") {
-                return <div className='flex gap-1 flex-col'>
-                    <a href={window.location.origin + "/listadecoleta?id=" + id} target="_blank" className='bg-wmsPink p-1 block rounded'>Imprimir lista com pedidos</a>
-                    <a href={window.location.origin + "/listadeseparacao?id=" + id} target="_blank" className='bg-wmsPink p-1 block rounded'>Imprimir lista com produtos</a>
-                </div>
+                return (
+                    <div className='flex gap-4 text-sm flex-col'>
+                        <a href={window.location.origin + "/listadecoleta?id=" + id} target="_blank" className='wmsButton'>Imprimir lista com pedidos</a>
+                        <a href={window.location.origin + "/listadeseparacao?id=" + id} target="_blank" className='wmsButton'>Imprimir lista com produtos</a>
+                    </div>
+                )
             }
             return <p>{situacao}</p>
         }
@@ -79,12 +69,12 @@ function TableBody(props) {
 
         return (
             <tr className='grid grid-cols-4 items-center text-center justify-items-center border-b-2 border-b-wmsGrey'>
-                <td className='p-2'>
+                <td >
                     <Id {...props} />
                 </td>
                 <td> <Image {...props} /></td>
                 <td>{pedidos}</td>
-                <td>
+                <td className='p-1'>
                     <RowButton {...props} />
                 </td>
             </tr>
@@ -131,28 +121,40 @@ export default () => {
         <>
             <header className="flex gap-[10rem] sm:gap-[20rem] md:gap-[25rem]">
                 <h1 className="text-4xl font-bold">Selecionar</h1>
-                <div id="canais" className="filterSelect">
-                    <label htmlFor="seletorCanais" className='border-r border-wmsGrey pl-2 pr-2'>Canais:</label>
-                    <select className='p-1 outline-none' name="integracao" onClick={(e) => updateCanal()} id="seletorCanais">
-                        <option value="todos">Todos</option>
-                        <option value="MercadoLivre">Mercado Coletas</option>
-                        <option value="IntegraCommerce">Magalu Coletas</option>
-                        <option value="Correios">Correios</option>
-                        <option value="Shopee">Sequoia</option>
-                    </select>
+                <div className="flex gap-2 flex-wrap items-center">
+                    {/* <div id="periodo" className="filterSelect">
+                        <label htmlFor="periodoListas" className='pl-2 pr-2'>Período:</label>
+                        <select className='p-1 outline-none ' name="integracao" onClick={(e) => updateCanal()} id="periodoListas">
+                            <option value="todos">Todos</option>
+                            <option value="MercadoLivre">Hoje</option>
+                            <option value="IntegraCommerce">Semana passada</option>
+                            <option value="Correios">Este mês</option>
+                            <option value="Shopee">Personalizado</option>
+                        </select>
+                    </div> */}
+                    <div id="canais" className="filterSelect">
+                        <label htmlFor="seletorCanais" className='pl-2 pr-2'>Canais:</label>
+                        <select className='p-1 outline-none w-' name="integracao" onClick={(e) => updateCanal()} id="seletorCanais">
+                            <option value="todos">Todos</option>
+                            <option value="MercadoLivre">Mercado Coletas</option>
+                            <option value="IntegraCommerce">Magalu Coletas</option>
+                            <option value="Correios">Correios</option>
+                            <option value="Shopee">Shopee</option>
+                        </select>
+                    </div>
                 </div>
             </header>
             <main className='flex flex-col gap-[2rem]'>
                 <nav>
                     <ul className='flex font-semibold justify-between gap-2 w-[20rem] text-xl'>
                         <li>
-                            <button onClick={() => updateState("criar")} className={listas.state == "criar" ? "border-b border-wmsPink" : null}>Criar</button>
+                            <button onClick={() => updateState("criar")} className={listas.state == "criar" ? "border-b-2 transition-all duration-200 border-wmsPink" : null}>Criar</button>
                         </li>
                         <li>
-                            <button onClick={() => updateState("emaberto")} className={listas.state == "emaberto" ? "border-b border-wmsPink" : null}>Em Aberto</button>
+                            <button onClick={() => updateState("emaberto")} className={listas.state == "emaberto" ? "border-b-2 transition-all duration-200 border-wmsPink" : null}>Em Aberto</button>
                         </li>
                         <li>
-                            <button onClick={() => updateState("finalizado")} className={listas.state == "finalizado" ? "border-b border-wmsPink" : null}>Finalizado</button>
+                            <button onClick={() => updateState("finalizado")} className={listas.state == "finalizado" ? "border-b-2 transition-all duration-200 border-wmsPink" : null}>Finalizado</button>
                         </li>
                     </ul>
                 </nav>

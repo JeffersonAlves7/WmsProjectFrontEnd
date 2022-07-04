@@ -11,11 +11,19 @@ function Row(props) {
             <td className="text-xs">
                 <Barcode value={chavedeacesso} height={60} width={1} fontSize={11} />
             </td>
-            <td className="text-xs font-semibold">{itens.map(({ sku }) => sku)}</td>
+            <td className="text-xs font-semibold ">
+                <div className="flex flex-col gap-1">
+                    {itens.map(({ sku }) => <p>{sku}</p>)}
+                </div>
+            </td>
             <td className="p-2 text-xs">{pedido}</td>
             <td className="text-xs">{integracao}</td>
-            <td className="text-xs">{itens.map(({ quantidade }) => quantidade)}</td>
-        </tr>
+            <td className="text-xs">
+                <div>
+                    {itens.map(({ quantidade }) => <p>{quantidade}</p>)}
+                </div>
+            </td>
+        </tr >
     )
 }
 

@@ -4,12 +4,25 @@
 
 @layer components {
     .filterSelect {
-        @apply flex;
+        @apply grid;
         @apply gap-2;
+        @apply grid-cols-[5rem_10rem];
         @apply items-center;
         @apply border;
         @apply border-wmsGrey;
         @apply shadow-sm;
+        @apply p-1;
         @apply rounded-lg;
+    }
+
+    .wmsButton {
+        @apply bg-wmsPink;
+        @apply hover:bg-cyan-400;
+        @apply hover:scale-105;
+        @apply transition-all;
+        @apply p-1;
+        @apply block;
+        @apply rounded;
+        @apply text-sm;
     }
 }

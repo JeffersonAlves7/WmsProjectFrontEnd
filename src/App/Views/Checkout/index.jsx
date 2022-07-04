@@ -22,10 +22,17 @@ export default (props) => {
     useEffect(() => {
         api.get(`/pedidos?chavedeacesso=${chavedeacesso}&itens=true`).then((res) => {
             const { data } = res
+
             if ((data.response[0].situacao).toLowerCase() !== "emaberto") {
                 window.location.replace(window.location.origin + '/embalar')
                 return
             }
+
+            api.get("/notas?nf=" + data.response[0].nf).then(res => {
+                if (res.data.message === "Nota não encontrada") {
+                    window.location.replace(window.location.origin + '/listaAtiva?message=Pedido+pendente,+aguarde+alguns+minutos+e+tente+novamente+mais+tarde.&lista=' + data.response[0].idLista)
+                }
+            })
 
             setPedido(data.response[0])
         })

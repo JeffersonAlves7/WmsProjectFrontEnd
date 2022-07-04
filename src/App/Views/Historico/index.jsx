@@ -12,12 +12,17 @@ function TableBody(props) {
 
     function Row(props) {
         const { pedido, nf, situacao, itens } = props
+        let textSituacao = ""
+
+        if (situacao === "emaberto") textSituacao = "Em aberto";
+        if (situacao === "embalado") textSituacao = "Embalado";
+        if (situacao === "finalizado") textSituacao = "Finalizado";
 
         function ImageLogo({ integracao }) {
             if (integracao == "IntegraCommerce") return <img className="max-w-[70px]" src={MagaluLogo} alt="" />
             if (integracao == "MercadoLivre") return <img className="max-w-[70px]" src={MercadoLogo} alt="" />
             if (integracao == "Shopee") return <img className="max-w-[70px]" src={ShopeeLogo} alt="" />
-            if (["SkyHub", "Kabum"].indexOf(integracao) > -1) return <img className="max-w-[70px]" src={CorreiosLogo} alt="" />
+            if (["SkyHub", "Kabum", "Olist"].indexOf(integracao) > -1) return <img className="max-w-[70px]" src={CorreiosLogo} alt="" />
             else return <p>{integracao}</p>
         }
         function Itens({ imagem, quantidade, sku }) {
@@ -29,16 +34,19 @@ function TableBody(props) {
             )
         }
         return (
-            <tr className='grid grid-cols-4 items-center w-[65rem] text-center justify-items-center border-b-2 border-b-wmsGrey'>
+            <tr className='grid grid-cols-[2fr_1fr_1fr_1fr] items-center text-center justify-items-center border-b-2 border-b-wmsGrey'>
                 <td className='p-2'>
-                    <div>
-                        <a className="text-blue-400" href={window.location.origin + "/pedido?pedido=" + pedido}>
-                            <p>{pedido}</p><p>{nf}</p>
+                    <div className="flex flex-col items-center">
+                        <a className="text-blue-400 w-max" href={window.location.origin + "/pedido?pedido=" + pedido}>
+                            {pedido}
+                        </a>
+                        <a className="text-blue-400 w-max" href={window.location.origin + "/pedido?pedido=" + pedido}>
+                            {nf}
                         </a>
                     </div>
                 </td>
                 <td>
-                    {situacao}
+                    {textSituacao}
                 </td>
                 <td>
                     <ImageLogo {...props} />
@@ -57,7 +65,7 @@ function TableBody(props) {
         return pedidos.filter(pedido => pedido.integracao === canal && pedido.situacao.toLowerCase() === status).map(pedido => <Row {...pedido} />)
     }
     if (canal != "todos") {
-        if(canal === "Correios") return pedidos.filter(pedido => ["SkyHub", "Kabum"].indexOf(pedido.integracao) > -1 ).map(pedido => <Row {...pedido} />)
+        if (canal === "Correios") return pedidos.filter(pedido => ["SkyHub", "Kabum", "Olist"].indexOf(pedido.integracao) > -1).map(pedido => <Row {...pedido} />)
         return pedidos.filter(pedido => pedido.integracao === canal).map(pedido => <Row {...pedido} />)
     }
     if (status != "todos") {
@@ -128,7 +136,7 @@ export default function Historico() {
                         </button>
                     </div>
                     <div id="status" className="filterSelect">
-                        <label htmlFor="seletorStatus" className="border-r border-wmsGrey pl-2 pr-2">Status</label>
+                        <label htmlFor="seletorStatus" className=" pl-2 pr-2">Status</label>
                         <select name="integracao" className="p-1 outline-none" onClick={(e) => updateState()} id="seletorStatus">
                             <option value="todos">Todos</option>
                             <option value="emaberto">Em Aberto</option>
@@ -137,7 +145,7 @@ export default function Historico() {
                         </select>
                     </div>
                     <div id="canais" className="filterSelect">
-                        <label htmlFor="seletorCanais" className="border-r border-wmsGrey pl-2 pr-2">Canais</label>
+                        <label htmlFor="seletorCanais" className=" pl-2 pr-2">Canais</label>
                         <select name="integracao" className=" p-1 outline-none" onClick={(e) => updateCanal()} id="seletorCanais">
                             <option value="todos">Todos</option>
                             <option value="MercadoLivre">Mercado Coletas</option>
@@ -151,7 +159,7 @@ export default function Historico() {
             <main>
                 <table>
                     <thead>
-                        <tr className="grid grid-cols-4 justify-items-center text-xl border-b-2 border-b-wmsGrey">
+                        <tr className="grid grid-cols-[2fr_1fr_1fr_1fr] justify-items-center text-xl border-b-2 border-b-wmsGrey">
                             <th>
                                 <p className="text-center">N° do Pedido/NF</p>
                             </th>

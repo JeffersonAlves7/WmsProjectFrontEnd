@@ -2,7 +2,9 @@
     font-family: 'Roboto', sans-serif;
 }
 
-
+html {
+    overflow-x: hidden;
+}
 
 body {
     height: 100vh;
@@ -13,4 +15,19 @@ body {
 #root {
     height: 100vh;
     padding-bottom: 2rem;
+}
+
+#ul_to_hide {
+    height: 0px;
+    transition: all .3s;
+    overflow: hidden;
+    padding-left: 2rem;
+}
+
+#header_button {
+    display: none;
+}
+
+#header_button:checked~#ul_to_hide {
+    height: 200px;
 }
