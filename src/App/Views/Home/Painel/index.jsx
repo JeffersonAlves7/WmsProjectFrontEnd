@@ -1,4 +1,4 @@
-import Arrow from '../../../../Components/Buttons/Arrow/index'
+import Arrow from '../../../Components/Buttons/Arrow/index'
 
 export default function Painel(props) {
     const { span, title } = props

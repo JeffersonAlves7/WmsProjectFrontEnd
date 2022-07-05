@@ -1,6 +1,6 @@
-import NovosPedidos from './Components/NovosPedidos/index'
-import PedidosEmbalados from './Components/PedidosEmbalados/index'
-import Resumo from './Components/Resumo'
+import NovosPedidos from './NovosPedidos/index'
+import PedidosEmbalados from './PedidosEmbalados/index'
+import Resumo from './Resumo'
 
 export default function Dashboard() {
     return (

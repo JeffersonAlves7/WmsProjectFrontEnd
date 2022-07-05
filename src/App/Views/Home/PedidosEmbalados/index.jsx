@@ -1,5 +1,5 @@
 import Painel from '../Painel/index'
-import api from '../../../../api'
+import api from '../../../api/index'
 import { useEffect, useState } from 'react'
 
 export default function PedidosEmbalados() {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { BsFillCheckSquareFill } from "react-icons/bs"
-import servicesConfig from "../../../../config/services.json"
-import atualizarPedido from '../../../../api/modules/atualizarPedido'
+import servicesConfig from "../../../config/services.json"
+import atualizarPedido from '../../../api/modules/atualizarPedido'
 
 export default (props) => {
     let itens = props.itens

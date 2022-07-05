@@ -1,12 +1,12 @@
 import { HiOutlineMinus } from "react-icons/hi"
 import { useState, useEffect } from "react"
 
-import api from "../../../../api"
+import api from "../../../api"
 
-import MagaluLogo from "../../../../img/magalulogo.png"
-import MercadoLogo from "../../../../img/mercadolivrelogo.png"
-import ShopeeLogo from "../../../../img/shopeelogo.png"
-import CorreiosLogo from "../../../../img/correioslogo.png"
+import MagaluLogo from "../../../img/magalulogo.png"
+import MercadoLogo from "../../../img/mercadolivrelogo.png"
+import ShopeeLogo from "../../../img/shopeelogo.png"
+import CorreiosLogo from "../../../img/correioslogo.png"
 
 export default () => {
     const [pedidos, setPedidos] = useState([""])

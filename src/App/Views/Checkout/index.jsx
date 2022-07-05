@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import api from '../../api/index'
-import Main from './Components/Main/index'
+import Main from './Main/index'
 
 export default (props) => {
     const { chavedeacesso } = props
