@@ -1,14 +1,14 @@
 import Painel from '../Painel/index'
-import api from '../../../../../../api/index'
+import api from '../../../../api'
 import { useEffect, useState } from 'react'
 
 export default function PedidosEmbalados() {
     const [quantidade, setQuantidade] = useState(null);
 
     useEffect(() => {
-        api.get('/pedidos?situacao=embalado').then((res) => {
+        api.get('/pedidos?date=true').then((res) => {
             const { data } = res
-            setQuantidade(data.response.length)
+            setQuantidade(data.response.filter(a => a.situacao != "emaberto").length)
         });
     }, [])
 

@@ -8,6 +8,7 @@ import {
     ListaPedidos,
     ListaDeColeta,
     ListaSituacao,
+    ListasFinalizadas,
     ListaDeSeparacao,
 
     Historico,
@@ -34,6 +35,7 @@ export default function AppRoutes() {
                 <Route path="/checkout" element={<Checkout />} />
 
                 <Route path="/listas" element={<ListaSituacao />} />
+                <Route path="/listasfinalizadas" element={<ListasFinalizadas />} />
                 <Route path="/listapedidos" element={<ListaPedidos />} />
                 <Route path="/listadecoleta" element={<ListaDeColeta />} />
                 <Route path="/listadeseparacao" element={<ListaDeSeparacao />} />

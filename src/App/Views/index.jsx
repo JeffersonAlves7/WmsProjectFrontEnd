@@ -14,6 +14,7 @@ import V_ListasSituacao from './ListasSituacao/index'
 import V_ListaPedidos from './ListaPedidos/index'
 import V_ListaDeColeta from './ListaDeColeta/index'
 import V_ListaDeSeparacao from './ListaDeSeparacao/index'
+import V_ListasFinalizadas from "./ListasFinalizadas/index"
 
 function Home() {
     return (
@@ -34,6 +35,18 @@ function ListaSituacao() {
             <main className='m-auto flex justify-center'>
                 <div className='flex pt-[10rem] pl-2 pr-2 lg:pl-0 lg:pr-0 flex-col gap-[5rem]'>
                     <V_ListasSituacao />
+                </div>
+            </main>
+        </>
+    )
+}
+function ListasFinalizadas() {
+    return (
+        <>
+            <Header />
+            <main className='m-auto flex justify-center'>
+                <div className='flex pt-[10rem] pl-2 pr-2 lg:pl-0 lg:pr-0 flex-col gap-[5rem]'>
+                    <V_ListasFinalizadas />
                 </div>
             </main>
         </>
@@ -147,7 +160,7 @@ function Historico() {
     return (
         <>
             <Header />
-            <main className='m-auto flex justify-center'>
+            <main className='m-auto max-w-[60rem] flex justify-center'>
                 <div className='flex pt-[10rem] flex-col gap-[2rem]'>
                     <V_Historico />
                 </div>
@@ -171,4 +184,4 @@ function Pedido() {
 }
 
 
-export { Home, ListaSituacao, Embalar, ListaAtiva, Checkout, ListaPedidos, ListaDeColeta, ListaDeSeparacao, Historico, Pedido }
+export { Home, ListaSituacao, ListasFinalizadas, Embalar, ListaAtiva, Checkout, ListaPedidos, ListaDeColeta, ListaDeSeparacao, Historico, Pedido }

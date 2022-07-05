@@ -31,3 +31,42 @@ body {
 #header_button:checked~#ul_to_hide {
     height: 200px;
 }
+
+#coleta-table>div:nth-child(8n) {
+    padding-bottom: 7rem;
+}
+
+
+
+.wmsArrowButton>* {
+    animation-name: move_infinite;
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+    animation-timing-function: ease-in;
+}
+
+@keyframes move_infinite {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    20% {
+        transform: translate(2px, -2px);
+    }
+
+    40% {
+        transform: translate(1px, -2px);
+    }
+
+    60% {
+        transform: translate(2px, -1px);
+    }
+
+    80% {
+        transform: translate(1px, -2px);
+    }
+
+    100% {
+        transform: translate(0px, 0px);
+    }
+}

@@ -27,8 +27,8 @@ function TableBody(props) {
         }
         function Itens({ imagem, quantidade, sku }) {
             return (
-                <div className="flex gap-2 items-center">
-                    {imagem.url ? <img className="max-w-[70px]" src={imagem.url} alt=""></img> : <p className="font-semibold">{sku}</p>}
+                <div className="grid grid-cols-[2fr_1fr] items-center">
+                    {imagem.url ? <img className="max-w-[70px]" src={imagem.url} alt=""></img> : <p style={{ wordBreak: "break-word" }} className="font-semibold">{sku}</p>}
                     <p>X{quantidade}</p>
                 </div>
             )
@@ -37,16 +37,16 @@ function TableBody(props) {
             <tr className='grid grid-cols-[2fr_1fr_1fr_1fr] items-center text-center justify-items-center border-b-2 border-b-wmsGrey'>
                 <td className='p-2'>
                     <div className="flex flex-col items-center">
-                        <a className="text-blue-400 w-max" href={window.location.origin + "/pedido?pedido=" + pedido}>
+                        <a className="text-blue-600 w-max" href={window.location.origin + "/pedido?pedido=" + pedido}>
                             {pedido}
                         </a>
-                        <a className="text-blue-400 w-max" href={window.location.origin + "/pedido?pedido=" + pedido}>
+                        <a className="text-blue-600 w-max" href={window.location.origin + "/pedido?pedido=" + pedido}>
                             {nf}
                         </a>
                     </div>
                 </td>
                 <td>
-                    {textSituacao}
+                    <p>{textSituacao}</p>
                 </td>
                 <td>
                     <ImageLogo {...props} />
@@ -128,8 +128,11 @@ export default function Historico() {
                 <h1 className="text-2xl font-semibold">Historico de Pedidos</h1>
                 <div className="flex justify-between gap-2">
                     <div id="buscar-area" className="border border-wmsGrey rounded-lg p-1 flex items-center w-[20rem]">
-                        <input type="text" className="outline-none w-full border-r border-wmsGrey" placeholder="Pesquisar ID de Pedido ou Nota Fiscal" id="buscar-input" />
-                        <button type='button' className="w-[30px] p-1 h-full flex items-center justify-center" title='buscar' onClick={() => {
+                        <input type="text" onKeyDown={({ key }) => {
+                            if (key !== "Enter") return
+                            updateBusca()
+                        }} className="outline-none w-full" placeholder="Pesquisar ID de Pedido ou Nota Fiscal" id="buscar-input" />
+                        <button type='button' className="w-[30px] h-full flex items-center justify-center" title='buscar' onClick={() => {
                             updateBusca()
                         }}>
                             <BiSearch fontSize={20} />
@@ -151,7 +154,7 @@ export default function Historico() {
                             <option value="MercadoLivre">Mercado Coletas</option>
                             <option value="IntegraCommerce">Magalu Coletas</option>
                             <option value="Correios">Correios</option>
-                            <option value="Shopee">Sequoia</option>
+                            <option value="Shopee">Shopee</option>
                         </select>
                     </div>
                 </div>

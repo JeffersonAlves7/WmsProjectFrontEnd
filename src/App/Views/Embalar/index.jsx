@@ -31,9 +31,6 @@ export default () => {
             </header>
             <main className="flex gap-10 items-center">
                 <Scanner />
-                <Button type="button" text="Enviar" fn={() => {
-                    enviar()
-                }} />
             </main>
         </>
 

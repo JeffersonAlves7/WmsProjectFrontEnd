@@ -1,8 +1,7 @@
-import Arrow from "../../../Buttons/Arrow/index"
+import Arrow from "../Buttons/Arrow/index"
 import { HiOutlineMinus } from "react-icons/hi"
 
 export default function Links() {
-
     return (
         <ul className="sm:pt-[10rem] pt-64 text-3xl sm:block grid justify-center">
             <li className="flex items-center text-white transition-colors duration-200 hover:text-wmsLightPink">

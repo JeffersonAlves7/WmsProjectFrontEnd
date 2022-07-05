@@ -93,22 +93,15 @@ export default () => {
             canal: "",
             situacao: "",
             pedidos: ""
-        }], state: "criar", canal: "todos"
+        }], canal: "todos"
     });
 
     useEffect(() => {
-        api.get("/listas").then((res) => {
-            setListas({ listas: res.data.response, state: "criar", canal: "todos" })
+        api.get("/listas?situacao=finalizada").then((res) => {
+            setListas({ listas: res.data.response, canal: "todos" })
         });
     }, [])
 
-    function updateState(situacao) {
-        setListas(
-            {
-                listas: listas.listas, state: situacao, canal: listas.canal
-            }
-        )
-    }
     function updateCanal() {
         const canal = document.getElementById('seletorCanais').value
         setListas(
@@ -117,12 +110,13 @@ export default () => {
             }
         )
     }
+
     return (
         <>
             <header className="flex gap-[10rem] sm:gap-[20rem] md:gap-[25rem]">
                 <h1 className="text-4xl font-bold">Selecionar</h1>
                 <div className="flex gap-2 flex-wrap items-center">
-                    {/* <div id="periodo" className="filterSelect">
+                    <div id="periodo" className="filterSelect">
                         <label htmlFor="periodoListas" className='pl-2 pr-2'>Período:</label>
                         <select className='p-1 outline-none ' name="integracao" onClick={(e) => updateCanal()} id="periodoListas">
                             <option value="todos">Todos</option>
@@ -131,7 +125,7 @@ export default () => {
                             <option value="Correios">Este mês</option>
                             <option value="Shopee">Personalizado</option>
                         </select>
-                    </div> */}
+                    </div>
                     <div id="canais" className="filterSelect">
                         <label htmlFor="seletorCanais" className='pl-2 pr-2'>Canais:</label>
                         <select className='p-1 outline-none w-' name="integracao" onClick={(e) => updateCanal()} id="seletorCanais">
@@ -148,13 +142,13 @@ export default () => {
                 <nav>
                     <ul className='flex font-semibold justify-between gap-2 w-[20rem] text-xl'>
                         <li>
-                            <button onClick={() => updateState("criar")} className={listas.state == "criar" ? "border-b-2 transition-all duration-200 border-wmsPink" : null}>Criar</button>
+                            <a className="border-b-2 transition-all duration-200 border-wmsPink">Criar</a>
                         </li>
                         <li>
-                            <button onClick={() => updateState("emaberto")} className={listas.state == "emaberto" ? "border-b-2 transition-all duration-200 border-wmsPink" : null}>Em Aberto</button>
+                            <a className="border-b-2 transition-all duration-200 border-wmsPink">Em Aberto</a>
                         </li>
                         <li>
-                            <button onClick={() => updateState("finalizado")} className={listas.state == "finalizado" ? "border-b-2 transition-all duration-200 border-wmsPink" : null}>Finalizado</button>
+                            <button type='button' className="border-b-2 transition-all duration-200 border-wmsPink">Finalizado</button>
                         </li>
                     </ul>
                 </nav>
@@ -166,7 +160,7 @@ export default () => {
                         <TableBody {...listas} />
                     </tbody>
                 </table>
-            </main>
+            </main >
         </>
     )
 }

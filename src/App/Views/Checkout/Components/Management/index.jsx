@@ -1,11 +1,7 @@
-import { useState } from 'react'
-import WmsButton from '../../../../Components/Buttons/WmsButton/index'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { BsFillCheckSquareFill } from "react-icons/bs"
 import servicesConfig from "../../../../config/services.json"
 import atualizarPedido from '../../../../api/modules/atualizarPedido'
-
-
 
 export default (props) => {
     let itens = props.itens
@@ -174,7 +170,13 @@ export default (props) => {
 
                     <main className="flex flex-col gap-2 items-start">
                         <button className='p-2 rounded bg-green-500 disabled:bg-green-100' onClick={(e) => {
-                            document.getElementById("confirmar").disabled = false;
+                            document.getElementById("confirmar").classList.remove("imDisabled")
+                            document.getElementById("confirmar").classList.remove("bg-green-100")
+                            document.getElementById("confirmar").classList.remove("cursor-default")
+                            document.getElementById("confirmar").classList.add("bg-green-500")
+                            document.getElementById("confirmar").classList.add("cursor-pointer")
+
+
                             function appendIframe() {
                                 const divToAppend = document.getElementById('append-iframe')
 
@@ -194,13 +196,15 @@ export default (props) => {
                             e.target.disabled = true
                             appendIframe()
                         }}>Imprimir NF e Etiqueta</button>
-                        <button id='confirmar' disabled className='p-2 rounded bg-green-500 disabled:bg-green-100 min-w-max' type='button' onClick={
-                            () => {
-                                enviarPedido()
+                        <button id='confirmar' className='p-2 imDisabled rounded bg-green-100 cursor-default  min-w-max' type='button' onClick={(e) => {
+                            let resp = -1
+                            for (let i = 0; i < e.target.classList.length; i++) {
+                                if (e.target.classList[i] === "imDisabled") resp = i
                             }
-                        }>
-                            Confirmar
-                        </button>
+                            if (resp > -1) return
+                            enviarPedido();
+
+                        }}>Confirmar</button>
                     </main>
                 </section>
                 <div id="append-iframe"></div>
@@ -230,6 +234,6 @@ export default (props) => {
                 }} type="text" className='border border-wmsPink p-1 sm:p-2 w-[20rem] sm:w-[30rem] rounded text-lg h-[4rem] sm:text-xl' placeholder='Escanear ou inserir sku do produto' />
             </div>
 
-        </main>
+        </main >
     )
 }

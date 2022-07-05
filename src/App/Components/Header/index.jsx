@@ -1,6 +1,6 @@
 import Hamburguer from '../Buttons/Hamburguer/index'
 import { useState } from 'react'
-import Links from './components/Links/index'
+import Links from './Links'
 import barrareylogopainel from "../../img/barrareylogopainel.png"
 
 export default function Header() {
@@ -13,7 +13,7 @@ export default function Header() {
 
     return (
         <header>
-            <main className='bg-wmsPink absolute w-[100%] z-20 h-[100px] flex gap-10 items-center pl-10 pr-10'>
+            <main className='bg-wmsPink absolute w-[100%] shadow-2xl z-20 h-[100px] flex gap-10 items-center pl-10 pr-10'>
                 <Hamburguer length="3rem" fn={() => {
                     setMenuState(!menuState)
                 }} />

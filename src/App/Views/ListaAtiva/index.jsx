@@ -40,6 +40,7 @@ export default (props) => {
                 const { response } = data
                 const embalado = response.filter(pedido => pedido.situacao == "embalado").length
                 const total = response.length
+                if (response.filter(pedido => pedido.situacao == "finalizado").length === response.length) window.location.assign(window.location.origin + '/embalar')
                 setInfo({
                     embalado: embalado,
                     total: total
@@ -57,9 +58,7 @@ export default (props) => {
             <main className="flex gap-10 flex-col items-start">
                 <div className="flex gap-10 items-center">
                     <Scanner {...props} />
-                    <Button type="button" text="Escanear" fn={async () => {
-                        enviar(props)
-                    }} />
+
                 </div>
                 {props.message ? <p className="p-2  text-red-400 border-wmsLightPink border-2 rounded-lg shadow-lg" id="messageArea"></p> : <></>}
             </main>
