@@ -32,12 +32,6 @@ body {
     height: 200px;
 }
 
-#coleta-table>div:nth-child(8n) {
-    padding-bottom: 7rem;
-}
-
-
-
 .wmsArrowButton>* {
     animation-name: move_infinite;
     animation-iteration-count: infinite;
