@@ -27,11 +27,11 @@ export default (props) => {
                 return
             }
             // Desabilidanto essa função eu posso testar sem precisar de uma nota fiscal no sistema
-            // api.get("/notas?nf=" + data.response[0].nf).then(res => {
-            //     if (res.data.message === "Nota não encontrada") {
-            //         window.location.replace(window.location.origin + '/listaAtiva?message=Pedido+pendente,+aguarde+alguns+minutos+e+tente+novamente+mais+tarde.&lista=' + data.response[0].idLista)
-            //     }
-            // })
+            api.get("/notas?nf=" + data.response[0].nf).then(res => {
+                if (res.data.message === "Nota não encontrada") {
+                    window.location.replace(window.location.origin + '/listaAtiva?message=Pedido+pendente,+aguarde+alguns+minutos+e+tente+novamente+mais+tarde.&lista=' + data.response[0].idLista)
+                }
+            })
             setPedido(data.response[0])
         })
     }, [])

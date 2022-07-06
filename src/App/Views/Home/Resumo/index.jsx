@@ -79,7 +79,7 @@ export default () => {
                             </div>
                             <div>
                                 <p className="text-xl">
-                                    {pedidos.filter(a => a.situacao == "embalado" && ["MercadoLivre", "Shopee", "IntegraCommerce"].indexOf(a.integracao) === -1).length}
+                                    {pedidos.filter(a => a.situacao != "emaberto" && ["MercadoLivre", "Shopee", "IntegraCommerce"].indexOf(a.integracao) === -1).length}
                                     /
                                     {pedidos.filter(a => ["MercadoLivre", "Shopee", "IntegraCommerce"].indexOf(a.integracao) === -1).length}
                                 </p>
